@@ -28,7 +28,7 @@ class ViewController: UIViewController
     var currencyPickerView = UIPickerView()
     var convertedPickerView = UIPickerView()
     let currencyType = ["EUR", "USD", "JPY"]
-    var balanceModel = Balance(balanceEUR: 1000, balanceUSD: 0, balanceJPR: 0)
+    var balanceModel = Balance(balanceEUR: 1000, balanceUSD: 0, balanceJPY: 0)
     var fromCurrency: String?
     var toCurrency: String?
     
@@ -75,7 +75,7 @@ class ViewController: UIViewController
     {
         self.labelEURBalance.text = (self.balanceModel.balanceEUR.formatWithTwoDecimal() + " EUR")
         self.labelUSDBalance.text = (self.balanceModel.balanceUSD.formatWithTwoDecimal() + " USD")
-        self.labelJPYBalance.text = (self.balanceModel.balanceJPR.formatWithTwoDecimal() + " JPR")
+        self.labelJPYBalance.text = (self.balanceModel.balanceJPY.formatWithTwoDecimal() + " JPY")
         self.labelConvertedValue.text = "--.--"
         self.textfieldCurrencyValue.text = nil
         self.textfieldCurrencyValue.placeholder = "00.00"

@@ -11,16 +11,16 @@ class Balance
 {
     var balanceEUR: Double
     var balanceUSD: Double
-    var balanceJPR: Double
+    var balanceJPY: Double
     var convertCount: Int = 0
     
     init(balanceEUR: Double,
          balanceUSD: Double,
-         balanceJPR: Double)
+         balanceJPY: Double)
     {
         self.balanceEUR = balanceEUR
         self.balanceUSD = balanceUSD
-        self.balanceJPR = balanceJPR
+        self.balanceJPY = balanceJPY
     }
     
     func getBalanceFromType(currencyType: String) -> Double
@@ -31,8 +31,8 @@ class Balance
             return self.balanceEUR
         case "USD":
             return self.balanceUSD
-        case "JPR":
-            return self.balanceJPR
+        case "JPY":
+            return self.balanceJPY
         default:
             return 0
         }
@@ -46,8 +46,8 @@ class Balance
             self.balanceEUR += value
         case "USD":
             self.balanceUSD += value
-        case "JPR":
-            self.balanceJPR += value
+        case "JPY":
+            self.balanceJPY += value
         default:
             break
         }
