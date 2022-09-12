@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BalanceCell" id="gTV-IL-0wX" customClass="BalanceCell" customModule="CurrencyConverter" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="144" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="144" height="60"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5j-dG-lTi">
+                        <rect key="frame" x="4" y="0.0" width="136" height="60"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00 EUR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umi-Qm-UKJ">
+                                <rect key="frame" x="2" y="2" width="132" height="56"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.25882352939999997" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="umi-Qm-UKJ" firstAttribute="leading" secondItem="R5j-dG-lTi" secondAttribute="leading" constant="2" id="08T-aK-33b"/>
+                            <constraint firstAttribute="bottom" secondItem="umi-Qm-UKJ" secondAttribute="bottom" constant="2" id="4Zs-xq-WRI"/>
+                            <constraint firstAttribute="trailing" secondItem="umi-Qm-UKJ" secondAttribute="trailing" constant="2" id="bKZ-X1-BVf"/>
+                            <constraint firstItem="umi-Qm-UKJ" firstAttribute="top" secondItem="R5j-dG-lTi" secondAttribute="top" constant="2" id="xhS-P5-Um8"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="R5j-dG-lTi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="2Ov-Zg-oyy"/>
+                <constraint firstAttribute="bottom" secondItem="R5j-dG-lTi" secondAttribute="bottom" id="KlB-Bb-v9N"/>
+                <constraint firstAttribute="trailing" secondItem="R5j-dG-lTi" secondAttribute="trailing" constant="4" id="w4C-2O-oMR"/>
+                <constraint firstItem="R5j-dG-lTi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="wIJ-wA-jsM"/>
+            </constraints>
+            <size key="customSize" width="144" height="60"/>
+            <connections>
+                <outlet property="labelBalance" destination="umi-Qm-UKJ" id="f2J-U7-fyw"/>
+                <outlet property="viewContainer" destination="R5j-dG-lTi" id="dC0-6r-pCN"/>
+            </connections>
+            <point key="canvasLocation" x="169.56521739130437" y="120.53571428571428"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -16,6 +16,8 @@
 		1467D7D928C8CF170036C4C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1467D7D728C8CF170036C4C4 /* LaunchScreen.storyboard */; };
 		1495B03128CB86680060B175 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1495B03028CB86680060B175 /* ApiManager.swift */; };
 		1495B03328CB89590060B175 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1495B03228CB89590060B175 /* Exchange.swift */; };
+		149CB66C28CF25E4000CF187 /* BalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149CB66A28CF25E4000CF187 /* BalanceCell.swift */; };
+		149CB66D28CF25E4000CF187 /* BalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 149CB66B28CF25E4000CF187 /* BalanceCell.xib */; };
 		14EDA66528C9D4E5001DBEA9 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EDA66428C9D4E5001DBEA9 /* ViewExtension.swift */; };
 		14EDA67928CA413F001DBEA9 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EDA67828CA413F001DBEA9 /* Balance.swift */; };
 		FF1CCA783024274103D1CE3D /* Pods_CurrencyConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B2912A58DEFDE39BEC50B0 /* Pods_CurrencyConverter.framework */; };
@@ -33,6 +35,8 @@
 		1467D7DA28C8CF170036C4C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1495B03028CB86680060B175 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		1495B03228CB89590060B175 /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
+		149CB66A28CF25E4000CF187 /* BalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCell.swift; sourceTree = "<group>"; };
+		149CB66B28CF25E4000CF187 /* BalanceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceCell.xib; sourceTree = "<group>"; };
 		14EDA66428C9D4E5001DBEA9 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		14EDA67828CA413F001DBEA9 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		32DB624759F2B6327EB7C685 /* Pods-CurrencyConverter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyConverter.release.xcconfig"; path = "Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 		1477B6B128C8D465004E7914 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				149CB66928CF24FA000CF187 /* Cell */,
 				1467D7D228C8CF140036C4C4 /* Main.storyboard */,
 				1467D7D728C8CF170036C4C4 /* LaunchScreen.storyboard */,
 			);
@@ -109,6 +114,15 @@
 				1467D7D028C8CF140036C4C4 /* ViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		149CB66928CF24FA000CF187 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				149CB66A28CF25E4000CF187 /* BalanceCell.swift */,
+				149CB66B28CF25E4000CF187 /* BalanceCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		14EDA66328C9D4CC001DBEA9 /* Utils */ = {
@@ -200,6 +214,7 @@
 			files = (
 				1467D7D928C8CF170036C4C4 /* LaunchScreen.storyboard in Resources */,
 				1467D7D628C8CF170036C4C4 /* Assets.xcassets in Resources */,
+				149CB66D28CF25E4000CF187 /* BalanceCell.xib in Resources */,
 				1467D7D428C8CF140036C4C4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +272,7 @@
 				1467D7D128C8CF140036C4C4 /* ViewController.swift in Sources */,
 				14EDA67928CA413F001DBEA9 /* Balance.swift in Sources */,
 				1495B03128CB86680060B175 /* ApiManager.swift in Sources */,
+				149CB66C28CF25E4000CF187 /* BalanceCell.swift in Sources */,
 				1495B03328CB89590060B175 /* Exchange.swift in Sources */,
 				1467D7CD28C8CF140036C4C4 /* AppDelegate.swift in Sources */,
 				14EDA66528C9D4E5001DBEA9 /* ViewExtension.swift in Sources */,

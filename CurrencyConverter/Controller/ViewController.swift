@@ -9,12 +9,6 @@ import UIKit
 
 class ViewController: UIViewController
 {
-    @IBOutlet weak var viewEURBalance: UIView!
-    @IBOutlet weak var viewUSDBalance: UIView!
-    @IBOutlet weak var viewJPYBalance: UIView!
-    @IBOutlet weak var labelEURBalance: UILabel!
-    @IBOutlet weak var labelUSDBalance: UILabel!
-    @IBOutlet weak var labelJPYBalance: UILabel!
     @IBOutlet weak var viewCurrencyBalance: UIView!
     @IBOutlet weak var viewConvertedBalance: UIView!
     @IBOutlet weak var buttonSubmit: UIButton!
@@ -24,6 +18,7 @@ class ViewController: UIViewController
     @IBOutlet weak var textfieldCurrencyValue: UITextField!
     @IBOutlet weak var labelConvertedValue: UILabel!
     @IBOutlet weak var bottomViewContainer: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var currencyPickerView = UIPickerView()
     var convertedPickerView = UIPickerView()
@@ -39,6 +34,7 @@ class ViewController: UIViewController
         self.setupPickerView()
         self.renderUI()
         self.updateBalanceData()
+        self.setupCollectionView()
         self.fromCurrency = self.currencyType.first
         self.toCurrency = self.currencyType.first
     }
@@ -48,40 +44,51 @@ class ViewController: UIViewController
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     @objc func keyboardWillDisappear() {
         self.convertServiceCall()
         self.labelConvertedValue.text = ""
     }
-
+    
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
     
-    func renderUI()
+    private func renderUI()
     {
-        self.viewEURBalance.setCornerRadius(radius: 8)
-        self.viewUSDBalance.setCornerRadius(radius: 8)
-        self.viewJPYBalance.setCornerRadius(radius: 8)
         self.viewCurrencyBalance.setCornerRadius(radius: 8)
         self.viewConvertedBalance.setCornerRadius(radius: 8)
         self.buttonSubmit.setCornerRadius(radius: 6)
         self.iconConverter.setCornerRadius(radius: 32)
     }
     
-    func updateBalanceData()
+    private func updateBalanceData()
     {
-        self.labelEURBalance.text = (self.balanceModel.balanceEUR.formatWithTwoDecimal() + " EUR")
-        self.labelUSDBalance.text = (self.balanceModel.balanceUSD.formatWithTwoDecimal() + " USD")
-        self.labelJPYBalance.text = (self.balanceModel.balanceJPY.formatWithTwoDecimal() + " JPY")
+        self.collectionView.reloadData()
         self.labelConvertedValue.text = "--.--"
         self.textfieldCurrencyValue.text = nil
         self.textfieldCurrencyValue.placeholder = "00.00"
     }
     
-    func setupPickerView()
+    private func setupCollectionView()
+    {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.register(UINib(nibName: "BalanceCell", bundle: nil), forCellWithReuseIdentifier: "BalanceCell")
+        let cellWidth = (Int(UIScreen.main.bounds.width) - 16) / self.currencyType.count
+        let cellSize = CGSize(width:cellWidth , height:60)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = cellSize
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 0
+        self.collectionView.setCollectionViewLayout(layout, animated: true)
+        self.collectionView.reloadData()
+    }
+    
+    private func setupPickerView()
     {
         self.textfieldCurrencyValue.delegate = self
         self.currencyPickerView.delegate = self
@@ -110,7 +117,7 @@ class ViewController: UIViewController
         self.textfieldCurrencyValue.inputAccessoryView = toolBar
     }
     
-    func showAlert(title: String, message: String)
+    private func showAlert(title: String, message: String)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
@@ -137,15 +144,22 @@ class ViewController: UIViewController
             self.showAlert(title: "Not Enough Balance", message: "The commission fee should be deducted from the currency balance.")
             return
         }
-
-        let commissionMessage = self.balanceModel.convertCount > 4 ? "Commission Fee - \(commissionFee) \(fromCurrency)." : ""
+        
+        let commissionMessage = self.balanceModel.convertCount > 4 ? "Commission Fee - \(commissionFee.formatWithTwoDecimal()) \(fromCurrency)." : ""
         let message = "You have converted \(currencyValue.formatWithTwoDecimal()) \(fromCurrency) to \(convertedCurrencyAmount.formatWithTwoDecimal()) \(toCurrency)." + commissionMessage
         self.showAlert(title: "Currency Converted", message: message)
         
-        self.balanceModel.increaseConvertCount()
         self.balanceModel.addValueToBalance(currencyType: fromCurrency, value: (currencyValue * -1))
         self.balanceModel.addValueToBalance(currencyType: toCurrency, value: convertedCurrencyAmount)
+        self.getComissionFeeFromBalance(fromCurrency: fromCurrency, commissionFee: commissionFee)
+        self.balanceModel.increaseConvertCount()
         self.updateBalanceData()
+    }
+    
+    func getComissionFeeFromBalance(fromCurrency: String, commissionFee: Double)
+    {
+        guard self.balanceModel.convertCount > 4 else { return }
+        self.balanceModel.addValueToBalance(currencyType: fromCurrency, value: (commissionFee * -1))
     }
     
     func isComissionFeeEnough(totalFee: Double, type: String) -> Bool
@@ -160,7 +174,7 @@ class ViewController: UIViewController
         return balance >= amount
     }
     
-// MARK: - Service Call
+    // MARK: - Service Call
     func convertServiceCall()
     {
         guard let currencyValue = self.textfieldCurrencyValue.text?.toDouble(), currencyValue != 0 else { return }
@@ -184,7 +198,6 @@ class ViewController: UIViewController
 // MARK: - Textfield
 extension ViewController: UITextFieldDelegate
 {
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.textfieldCurrencyValue.text = textField.text?.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)
         self.convertServiceCall()
@@ -237,6 +250,24 @@ extension ViewController:  UIPickerViewDelegate, UIPickerViewDataSource
     @objc func dismissKeyboard(tapGesture: UITapGestureRecognizer)
     {
         self.view.endEditing(true)
+    }
+}
+
+// MARK: - CollectionView
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource
+{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return self.currencyType.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BalanceCell", for: indexPath as IndexPath) as! BalanceCell
+        let balanceValue = self.balanceModel.getBalanceFromType(currencyType: self.currencyType[indexPath.row]).formatWithTwoDecimal()
+        cell.labelBalance.text = balanceValue + " \(self.currencyType[indexPath.row])"
+        cell.setCornerRadius(radius: 12)
+        return cell
     }
 }
 
